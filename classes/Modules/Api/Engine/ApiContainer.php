@@ -6,6 +6,7 @@ use ReflectionClass;
 use Xentral\Components\Database\Database;
 use Xentral\Components\Http\Request;
 use Xentral\Modules\Api\Auth\DigestAuth;
+use Xentral\Modules\Api\Auth\BearerTokenAuth;
 use Xentral\Modules\Api\Controller\Version1\AbstractController;
 use Xentral\Modules\Api\Converter\Converter;
 use Xentral\Modules\Api\Converter\JsonConverter;
@@ -208,6 +209,14 @@ final class ApiContainer
     private function createDigestAuthService()
     {
         return new DigestAuth($this->get('Database'), $this->get('Request'));
+    }
+
+    /**
+     * @return BearerTokenAuth
+     */
+    private function createBearerTokenAuthService()
+    {
+        return new BearerTokenAuth($this->get('Database'), $this->get('Request'));
     }
 
     /**

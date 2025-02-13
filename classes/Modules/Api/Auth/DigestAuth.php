@@ -7,7 +7,7 @@ use Xentral\Components\Http\Request;
 use Xentral\Modules\Api\Error\ApiError;
 use Xentral\Modules\Api\Exception\AuthorizationErrorException;
 
-class DigestAuth
+class DigestAuth implements AuthInterface
 {
     /** @var Database $db */
     protected $db;

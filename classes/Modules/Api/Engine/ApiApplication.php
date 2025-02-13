@@ -34,7 +34,7 @@ class ApiApplication
     /** @var Response $response */
     protected $response;
 
-    /** @var DigestAuth $auth */
+    /** @var AuthInterface $auth */
     protected $auth;
 
     /** @var RouterResult|null $routerResult */
@@ -76,13 +76,21 @@ class ApiApplication
         }
 
         try {
-            $this->auth = $this->get('DigestAuth');
-            $this->auth->checkLogin();
+            $authHeader = $this->request->header->get('Authorization');
 
+            if (stripos($authHeader, 'Bearer ') === 0) {
+                $this->auth = $this->get('BearerTokenAuth');
+            } else {
+                // Default to DigestAuth for backward compatibility
+                $this->auth = $this->get('DigestAuth');
+            }
+
+            $this->auth->checkLogin();
             $this->response = $this->handleApiRequest($method, $uri);
         } catch (ApiHttpException $e) {
             $this->response = $this->createErrorResponse($e);
         }
+
 
         return $this->response;
     }
