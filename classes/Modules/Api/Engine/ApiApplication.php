@@ -639,7 +639,7 @@ class ApiApplication
             $controller = new DefaultController(
                 $this->container->get('LegacyApi'),
                 $this->container->get('Request'),
-                $this->container->get('DigestAuth')->getApiAccountId()
+                $this->auth->getApiAccountId()
             );
             $action = $routeInfo->getControllerAction();
 
@@ -700,7 +700,7 @@ class ApiApplication
             $controller = new ReportsController(
                 $this->container->get('LegacyApplication'),
                 $this->container->get('Request'),
-                $this->container->get('DigestAuth')->getApiAccountId()
+                $this->auth->getApiAccountId()
             );
             $action = $routeInfo->getControllerAction();
 

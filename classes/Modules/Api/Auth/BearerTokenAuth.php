@@ -38,8 +38,9 @@ class BearerTokenAuth implements AuthInterface
         }
 
         if (stripos($authHeader, 'Bearer ') !== 0) {
+
             throw new AuthorizationErrorException(
-                'Authorization type not allowed.',
+                'Authorization type not allowed.'.$authHeader,
                 ApiError::CODE_AUTH_TYPE_NOT_ALLOWED
             );
         }
@@ -48,7 +49,7 @@ class BearerTokenAuth implements AuthInterface
         if (empty($token)) {
             throw new AuthorizationErrorException(
                 'Authorization failure. Token is empty.',
-                ApiError::CODE_AUTH_TOKEN_EMPTY
+                ApiError::CODE_API_ACCOUNT_INVALID
             );
         }
 

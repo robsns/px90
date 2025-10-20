@@ -55,6 +55,7 @@ class ReportsController
         /** @var ReportGateway $gateway */
         $gateway = $this->app->Container->get('ReportGateway');
         $transferOptions = $gateway->findTransferArrayByReportId($reportId);
+
         if (
             empty($transferOptions)
             || !isset(
